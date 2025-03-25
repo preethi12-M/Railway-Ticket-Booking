@@ -1,0 +1,74 @@
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+# Sample workout and food plans
+workout_plans = {
+    "weight_loss": [
+        "30 min cardio (running or cycling)",
+        "Strength training: full body",
+        "HIIT workout",
+        "Yoga or stretching",
+        "30 min cardio (swimming)",
+        "Circuit training",
+        "Rest day"
+    ],
+    "muscle_gain": [
+        "Upper body strength training",
+        "Lower body strength training",
+        "Rest day",
+        "Push-pull workout",
+        "Leg day",
+        "Full body strength training",
+        "Active recovery (light cardio)"
+    ],
+    "maintain": [
+        "Cardio and light strength training",
+        "Yoga or Pilates",
+        "HIIT workout",
+        "Strength training: full body",
+        "Cardio (walking or cycling)",
+        "Rest day",
+        "Flexibility training"
+    ]
+}
+
+food_plans = {
+    "weight_loss": [
+        "Breakfast: Oatmeal with berries",
+        "Lunch: Grilled chicken salad",
+        "Dinner: Baked salmon with veggies",
+        "Snack: Greek yogurt",
+        "Repeat with variations"
+    ],
+    "muscle_gain": [
+        "Breakfast: Protein smoothie",
+        "Lunch: Quinoa with chicken",
+        "Dinner: Beef stir-fry with rice",
+        "Snack: Nuts and fruit",
+        "Repeat with variations"
+    ],
+    "maintain": [
+        "Breakfast: Eggs and toast",
+        "Lunch: Turkey sandwich",
+        "Dinner: Grilled veggies and fish",
+        "Snack: Hummus with veggies",
+        "Repeat with variations"
+    ]
+}
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        name = request.form['name']
+        fitness_goal = request.form['fitness_goal']
+        
+        workout_plan = workout_plans.get(fitness_goal, [])
+        food_plan = food_plans.get(fitness_goal, [])
+        
+        return render_template('index.html', name=name, workout_plan=workout_plan, food_plan=food_plan)
+    
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
