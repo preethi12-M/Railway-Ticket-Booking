@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customized Workout Chatbot</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Customized Workout Chatbot!</h1>
+        <form method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="fitness_goal">Fitness Goal:</label>
+            <select id="fitness_goal" name="fitness_goal" required>
+                <option value="weight_loss">Weight Loss</option>
+                <option value="muscle_gain">Muscle Gain</option>
+                <option value="maintain">Maintain Weight</option>
+            </select>
+            
+            <button type="submit">Get My Plan</button>
+        </form>
+
+        {% if name %}
+            <h2>Hello, {{ name }}!</h2>
+            <h3>Your 7-Day Workout Plan:</h3>
+            <ul>
+                {% for workout in workout_plan %}
+                    <li>{{ workout }}</li>
+                {% endfor %}
+            </ul>
+
+            <h3>Your 7-Day Food Plan:</h3>
+            <ul>
+                {% for food in food_plan %}
+                    <li>{{ food }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
